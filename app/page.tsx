@@ -32,7 +32,7 @@ export default function Home() {
     <header>
       <a href="#home" className="logo">HAGER<span>/</span></a>
       <nav className={menu ? "open" : ""}>{["About", "Experience", "Work", "Contact"].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenu(false)}>{item}</a>)}</nav>
-      <div className="nav-actions"><button className="theme" onClick={() => setLight(!light)} aria-label="Toggle color theme">{light ? "DARK" : "LIGHT"}</button><button className="hamburger" onClick={() => setMenu(!menu)} aria-label="Open menu"><i /><i /></button></div>
+      <div className="nav-actions"><button className="theme" onClick={() => setLight(!light)} aria-label={`Switch to ${light ? "dark" : "light"} mode`}><span aria-hidden="true">{light ? "☾" : "☀"}</span>{light ? "DARK" : "LIGHT"}</button><button className="hamburger" onClick={() => setMenu(!menu)} aria-label="Open menu"><i /><i /></button></div>
     </header>
 
     <main>
