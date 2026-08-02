@@ -6,8 +6,6 @@ const experience = [
   { period: "2024", role: "Recruitment Specialist", company: "Job Nile", text: "Managed complete recruitment cycles and built trusted relationships between clients and candidates.", points: ["Sourcing and competency interviews", "Offer and interview coordination", "Talent pipelines and reporting"] },
   { period: "2023 - 2024", role: "Recruitment & Database Coordinator", company: "Job Nile", text: "Created a reliable operational foundation for accurate and responsive recruitment delivery.", points: ["Candidate screening", "Stakeholder communication", "Database and CV quality"] },
 ];
-const skills = ["HR Consulting", "Organizational Development", "Talent Acquisition", "HR Operations", "Performance Management", "Compensation & Benefits", "Workforce Planning", "Employee Relations", "HR Analytics", "Policy Design", "Client Management", "Leadership"];
-
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [light, setLight] = useState(false);
@@ -33,7 +31,7 @@ export default function Home() {
 
     <header>
       <a href="#home" className="logo">HAGER<span>/</span></a>
-      <nav className={menu ? "open" : ""}>{["About", "Experience", "Work", "Skills", "Contact"].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenu(false)}>{item}</a>)}</nav>
+      <nav className={menu ? "open" : ""}>{["About", "Experience", "Work", "Contact"].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenu(false)}>{item}</a>)}</nav>
       <div className="nav-actions"><button className="theme" onClick={() => setLight(!light)} aria-label="Toggle color theme">{light ? "DARK" : "LIGHT"}</button><button className="hamburger" onClick={() => setMenu(!menu)} aria-label="Open menu"><i /><i /></button></div>
     </header>
 
@@ -66,9 +64,7 @@ export default function Home() {
 
       <section id="work" className="section shell"><div className="label reveal">03 — SELECTED WORK</div><div className="section-title reveal"><h2>Problems turned<br /><em>into progress.</em></h2></div><div className="work-grid"><article className="work-card featured reveal"><span>01 / ORGANIZATION</span><h3>HR foundations<br />built to scale.</h3><p>Structures, job architecture, authority matrices, policies, SOPs, and employee handbooks tailored to real operating needs.</p><div className="work-index">OD</div></article><article className="work-card reveal"><span>02 / TALENT</span><h3>Better hiring,<br />end to end.</h3><p>Recruitment across engineering, IT, finance, sales, marketing, HR, and operations.</p><div className="work-index">TA</div></article><article className="work-card reveal"><span>03 / SYSTEMS</span><h3>People data that<br />drives decisions.</h3><p>Performance frameworks, salary benchmarking, HR dashboards, and executive insights.</p><div className="work-index">PS</div></article></div></section>
 
-      <section id="skills" className="section skills-block"><div className="shell"><div className="label reveal">04 — EXPERTISE</div><div className="section-title reveal"><h2>Tools for building<br /><em>better workplaces.</em></h2></div><div className="skill-cloud reveal">{skills.map((skill, index) => <span key={skill}><i>{String(index + 1).padStart(2, "0")}</i>{skill}</span>)}</div><div className="credentials reveal"><div><small>2026</small><b>Professional Diploma in Human Resources</b><span>AAST</span></div><div><small>2026</small><b>Leadership Development Program</b><span>NTC</span></div><div><small>2022</small><b>Bachelor of Finance & Investment</b><span>Alexandria University</span></div></div></div></section>
-
-      <section id="contact" className="contact shell section reveal"><div className="contact-top"><div><div className="label">05 — CONTACT</div><h2>Let’s build<br /><em>something better.</em></h2></div><p>Have a hiring challenge or an HR system to improve? Tell me what you are working on.</p></div><form action="mailto:hager8053@gmail.com" method="post" encType="text/plain"><label><span>Name</span><input name="name" required /></label><label><span>Email</span><input type="email" name="email" required /></label><label className="wide"><span>Message</span><textarea name="message" rows={3} required /></label><button type="submit">Send message <span>↗</span></button></form><div className="contact-links"><a href="mailto:hager8053@gmail.com">hager8053@gmail.com</a><a href="tel:+201152746073">+20 115 274 6073</a><a href="https://www.linkedin.com/in/hager-abd-elmegid-701447216/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></section>
+      <section id="contact" className="contact shell section reveal"><div className="contact-top"><div><div className="label">04 — CONTACT</div><h2>Let’s build<br /><em>something better.</em></h2></div><p>Have a hiring challenge or an HR system to improve? Tell me what you are working on.</p></div><form action="mailto:hager8053@gmail.com" method="post" encType="text/plain"><label><span>Name</span><input name="name" required /></label><label><span>Email</span><input type="email" name="email" required /></label><label className="wide"><span>Message</span><textarea name="message" rows={3} required /></label><button type="submit">Send message <span>↗</span></button></form><div className="contact-links"><a href="mailto:hager8053@gmail.com">hager8053@gmail.com</a><a href="tel:+201152746073">+20 115 274 6073</a><a href="https://www.linkedin.com/in/hager-abd-elmegid-701447216/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></section>
     </main>
 
     <footer><a className="logo" href="#home">HAGER<span>/</span></a><p>HR GENERALIST · ALEXANDRIA, EGYPT</p><p>© {new Date().getFullYear()}</p></footer>
