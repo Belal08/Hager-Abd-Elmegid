@@ -1,192 +1,76 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 const roles = ["HR Generalist", "People Operations Partner", "Talent Acquisition Specialist"];
-
 const experience = [
-  {
-    date: "Mar 2024 — Present",
-    role: "HR Generalist",
-    company: "HRMC",
-    summary: "Delivering end-to-end HR consulting, organizational development, talent acquisition, and HR operations for multiple client organizations.",
-    bullets: ["Organizational assessments, gap analysis, policies, and HR process design", "Performance, compensation, workforce planning, and executive reporting", "Full-cycle recruitment across technical and non-technical disciplines"],
-  },
-  {
-    date: "Jan 2024 — Mar 2024",
-    role: "Recruitment Specialist",
-    company: "Job Nile for Recruitment & HR Consultancy",
-    summary: "Managed end-to-end recruitment while building trusted relationships with clients and candidates.",
-    bullets: ["Sourcing, competency-based interviewing, and candidate shortlisting", "Interview coordination, feedback follow-up, and offer support", "Recruitment reporting, talent pipelines, and trainee supervision"],
-  },
-  {
-    date: "Jan 2023 — Jan 2024",
-    role: "Recruitment & Database Coordinator",
-    company: "Job Nile for Recruitment & HR Consultancy",
-    summary: "Built the operational foundation for accurate, responsive recruitment delivery.",
-    bullets: ["Candidate sourcing and phone screening", "Client and candidate communication", "CV review, database quality, and recruitment-system updates"],
-  },
+  { period: "2024 - NOW", role: "HR Generalist", company: "HRMC", text: "Leading HR consulting, organizational development, recruitment, and people operations across multiple client organizations.", points: ["Organization design and HR gap analysis", "Performance and compensation frameworks", "Full-cycle technical and non-technical hiring"] },
+  { period: "2024", role: "Recruitment Specialist", company: "Job Nile", text: "Managed complete recruitment cycles and built trusted relationships between clients and candidates.", points: ["Sourcing and competency interviews", "Offer and interview coordination", "Talent pipelines and reporting"] },
+  { period: "2023 - 2024", role: "Recruitment & Database Coordinator", company: "Job Nile", text: "Created a reliable operational foundation for accurate and responsive recruitment delivery.", points: ["Candidate screening", "Stakeholder communication", "Database and CV quality"] },
 ];
-
-const achievements = [
-  { number: "40+", label: "Employees supported per client", detail: "Scalable HR solutions for growing organizations" },
-  { number: "3+", label: "Years in HR", detail: "Recruitment, consulting, and people operations" },
-  { number: "8", label: "Professional credentials", detail: "HR, leadership, finance, PR, ERP, and AI" },
-];
-
-const skills = {
-  "HR & People": ["HR Consulting", "Organizational Development", "Talent Acquisition", "HR Operations", "Performance Management", "Compensation & Benefits", "Workforce Planning", "Employee Relations"],
-  "Business & Delivery": ["Project Coordination", "HR Analytics", "Policy Design", "Executive Reporting", "Client Management", "Payroll Coordination", "Learning & Development"],
-  "Human Strengths": ["Communication", "Negotiation", "Problem Solving", "Leadership", "Teamwork", "Time Management", "Attention to Detail", "Confidentiality"],
-};
-
-function ArrowIcon() {
-  return <span aria-hidden="true">↗</span>;
-}
+const skills = ["HR Consulting", "Organizational Development", "Talent Acquisition", "HR Operations", "Performance Management", "Compensation & Benefits", "Workforce Planning", "Employee Relations", "HR Analytics", "Policy Design", "Client Management", "Leadership"];
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [light, setLight] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [roleIndex, setRoleIndex] = useState(0);
+  const [menu, setMenu] = useState(false);
+  const [role, setRole] = useState(0);
 
   useEffect(() => {
-    const saved = localStorage.getItem("hager-theme");
-    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-    setLight(saved ? saved === "light" : prefersLight);
-    const loadTimer = window.setTimeout(() => setLoaded(true), 1700);
-    const roleTimer = window.setInterval(() => setRoleIndex((i) => (i + 1) % roles.length), 2600);
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible"));
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => { window.clearTimeout(loadTimer); window.clearInterval(roleTimer); observer.disconnect(); };
+    setLight(localStorage.getItem("ha-theme-v2") === "light");
+    const loading = window.setTimeout(() => setLoaded(true), 1100);
+    const typing = window.setInterval(() => setRole((value) => (value + 1) % roles.length), 2600);
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("visible")), { threshold: .12 });
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    return () => { clearTimeout(loading); clearInterval(typing); observer.disconnect(); };
   }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = light ? "light" : "dark";
-    localStorage.setItem("hager-theme", light ? "light" : "dark");
+    localStorage.setItem("ha-theme-v2", light ? "light" : "dark");
   }, [light]);
 
-  const closeMenu = () => setMenuOpen(false);
+  return <>
+    <div className={`loader ${loaded ? "hide" : ""}`}><div className="loader-logo">HA<span>/</span></div><div className="loader-line"><i /></div><small>BUILDING PEOPLE. SHAPING BUSINESS.</small></div>
 
-  return (
-    <>
-      <div className={`preloader ${loaded ? "preloader--done" : ""}`} aria-hidden={loaded}>
-        <div className="loader-mark">HA<span>.</span></div>
-        <p><span className="prompt">&gt;</span> Hager Abd Elmegid <span className="muted">| Loading portfolio...</span></p>
-        <div className="loader-track"><span /></div>
-      </div>
+    <header>
+      <a href="#home" className="logo">HAGER<span>/</span></a>
+      <nav className={menu ? "open" : ""}>{["About", "Experience", "Work", "Skills", "Contact"].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenu(false)}>{item}</a>)}</nav>
+      <div className="nav-actions"><button className="theme" onClick={() => setLight(!light)} aria-label="Toggle color theme">{light ? "DARK" : "LIGHT"}</button><button className="hamburger" onClick={() => setMenu(!menu)} aria-label="Open menu"><i /><i /></button></div>
+    </header>
 
-      <header className="site-header">
-        <a className="brand" href="#home" onClick={closeMenu} aria-label="Hager Abd Elmegid, home">HA<span>.</span></a>
-        <nav className={menuOpen ? "nav-open" : ""} aria-label="Main navigation">
-          {["Home", "About", "Experience", "Highlights", "Skills", "Contact"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>{item}</a>
-          ))}
-        </nav>
-        <div className="header-actions">
-          <button className="theme-toggle" onClick={() => setLight((v) => !v)} aria-label={`Switch to ${light ? "dark" : "light"} theme`}>
-            <span className="theme-icon">{light ? "☾" : "☼"}</span>
-          </button>
-          <button className="menu-toggle" onClick={() => setMenuOpen((v) => !v)} aria-expanded={menuOpen} aria-label="Toggle navigation"><span /><span /></button>
+    <main>
+      <section id="home" className="hero shell">
+        <div className="hero-main reveal visible">
+          <div className="kicker"><span>HR / PEOPLE / CULTURE</span><span>ALEXANDRIA, EGYPT</span></div>
+          <h1>Human insight.<br /><b>Business impact.</b></h1>
+          <div className="role"><span>Currently</span><strong key={role}>{roles[role]}</strong></div>
+          <p>I build practical people systems that help organizations hire better, operate smarter, and grow with confidence.</p>
+          <div className="actions"><a className="primary" href={`${import.meta.env.BASE_URL}Hager-Abd-Elmegid-CV.pdf`} download>Download résumé <span>↓</span></a><a className="secondary" href="#contact">Start a conversation <span>↗</span></a></div>
         </div>
-      </header>
+        <aside className="hero-aside reveal visible">
+          <div className="portrait-mark"><span>H</span><span>A</span></div>
+          <div className="aside-bottom"><div><small>EXPERIENCE</small><b>3+ YEARS</b></div><div><small>DISCIPLINE</small><b>PEOPLE & ORG</b></div></div>
+        </aside>
+        <div className="hero-strip"><span>ORGANIZATIONAL DEVELOPMENT</span><i /><span>TALENT ACQUISITION</span><i /><span>HR OPERATIONS</span></div>
+      </section>
 
-      <main>
-        <section id="home" className="hero section-shell">
-          <div className="hero-orb" aria-hidden="true" />
-          <div className="hero-copy reveal is-visible">
-            <p className="eyebrow"><span /> Alexandria, Egypt · Open to opportunities</p>
-            <h1>People first.<br /><em>Business forward.</em></h1>
-            <div className="role-line"><span className="prompt">&gt;</span> <span key={roleIndex} className="typed-role">{roles[roleIndex]}</span><i /></div>
-            <p className="hero-intro">I turn complex people challenges into clear, practical HR systems — connecting talent, operations, and organizational strategy to help teams thrive.</p>
-            <div className="hero-ctas">
-              <a className="button button-primary" href={`${import.meta.env.BASE_URL}Hager-Abd-Elmegid-CV.pdf`} download>Download CV <span>↓</span></a>
-              <a className="button button-ghost" href="#contact">Let&apos;s talk <ArrowIcon /></a>
-            </div>
-          </div>
-          <div className="hero-panel reveal is-visible">
-            <div className="status-row"><span className="status-dot" /> Available for the next challenge <span>01</span></div>
-            <div className="monogram">H<span>A</span></div>
-            <div className="panel-meta">
-              <div><small>FOCUS</small><strong>People · Process · Progress</strong></div>
-              <a href="https://www.linkedin.com/in/hager-abd-elmegid-701447216/" target="_blank" rel="noreferrer" aria-label="View Hager's LinkedIn profile">LinkedIn <ArrowIcon /></a>
-            </div>
-          </div>
-          <div className="scroll-cue"><span /> Scroll to explore</div>
-        </section>
+      <section id="about" className="about shell section">
+        <div className="label reveal">01 — ABOUT</div>
+        <div className="about-layout">
+          <h2 className="reveal">The human side of<br /><em>high performance.</em></h2>
+          <div className="about-copy reveal"><p className="lead">HR Generalist with an analytical mindset and a genuine interest in how people and businesses grow together.</p><p>My experience spans HR consulting, organizational development, talent acquisition, and operations. I translate complex business needs into clear policies, strong teams, and processes people can trust.</p><a href="#experience">See career journey <span>→</span></a></div>
+        </div>
+        <div className="stats reveal"><article><strong>40+</strong><span>Employees supported<br />per client</span></article><article><strong>3+</strong><span>Years across<br />the HR lifecycle</span></article><article><strong>8</strong><span>Professional<br />credentials</span></article><article className="red"><strong>EN</strong><span>Fluent English<br />communication</span></article></div>
+      </section>
 
-        <section id="about" className="about section-shell section-pad">
-          <div className="section-heading reveal"><p className="section-index">01 / ABOUT</p><h2>HR expertise with a<br /><em>business mindset.</em></h2></div>
-          <div className="about-grid">
-            <div className="about-copy reveal">
-              <p className="lead">I&apos;m an HR Generalist with 3+ years of experience across HR consulting, organizational development, talent acquisition, and people operations.</p>
-              <p>My work spans organizational diagnosis, workforce planning, recruitment, compensation, performance systems, and HR process improvement. I translate business needs into people solutions that teams can actually use.</p>
-              <p>With a Bachelor&apos;s degree in Finance & Investment and ongoing professional development in HR and leadership, I bring analytical discipline and human judgment to every project.</p>
-              <a className="text-link" href="#experience">Explore my journey <ArrowIcon /></a>
-            </div>
-            <div className="metric-grid reveal">
-              {achievements.map((item) => <article className="metric" key={item.number}><strong>{item.number}</strong><span>{item.label}</span><small>{item.detail}</small></article>)}
-              <article className="metric metric-accent"><span>Fluent in</span><strong>EN</strong><small>English communication</small></article>
-            </div>
-          </div>
-        </section>
+      <section id="experience" className="section dark-block"><div className="shell"><div className="label reveal">02 — EXPERIENCE</div><div className="section-title reveal"><h2>Career<br /><em>trajectory.</em></h2><p>From recruitment operations to strategic HR consulting.</p></div><div className="career">{experience.map((job, index) => <article className="career-row reveal" key={job.role}><div className="career-no">0{index + 1}</div><div className="career-meta"><span>{job.period}</span><b>{job.company}</b></div><div className="career-body"><h3>{job.role}</h3><p>{job.text}</p><ul>{job.points.map((point) => <li key={point}>{point}</li>)}</ul></div></article>)}</div></div></section>
 
-        <section id="experience" className="experience section-pad">
-          <div className="section-shell">
-            <div className="section-heading reveal"><p className="section-index">02 / EXPERIENCE</p><h2>A career built around<br /><em>meaningful impact.</em></h2></div>
-            <div className="timeline">
-              {experience.map((job, index) => (
-                <article className="timeline-item reveal" key={job.date}>
-                  <div className="timeline-date">{job.date}</div>
-                  <div className="timeline-node"><span>{String(index + 1).padStart(2, "0")}</span></div>
-                  <div className="timeline-content">
-                    <p>{job.company}</p><h3>{job.role}</h3><div className="timeline-details"><p>{job.summary}</p><ul>{job.bullets.map((b) => <li key={b}>{b}</li>)}</ul></div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+      <section id="work" className="section shell"><div className="label reveal">03 — SELECTED WORK</div><div className="section-title reveal"><h2>Problems turned<br /><em>into progress.</em></h2></div><div className="work-grid"><article className="work-card featured reveal"><span>01 / ORGANIZATION</span><h3>HR foundations<br />built to scale.</h3><p>Structures, job architecture, authority matrices, policies, SOPs, and employee handbooks tailored to real operating needs.</p><div className="work-index">OD</div></article><article className="work-card reveal"><span>02 / TALENT</span><h3>Better hiring,<br />end to end.</h3><p>Recruitment across engineering, IT, finance, sales, marketing, HR, and operations.</p><div className="work-index">TA</div></article><article className="work-card reveal"><span>03 / SYSTEMS</span><h3>People data that<br />drives decisions.</h3><p>Performance frameworks, salary benchmarking, HR dashboards, and executive insights.</p><div className="work-index">PS</div></article></div></section>
 
-        <section id="highlights" className="section-shell section-pad">
-          <div className="section-heading reveal"><p className="section-index">03 / HIGHLIGHTS</p><h2>Selected areas of<br /><em>contribution.</em></h2></div>
-          <div className="project-grid">
-            <article className="project-card project-wide reveal"><div className="project-top"><span>ORGANIZATIONAL DEVELOPMENT</span><b>01</b></div><div><h3>Building HR foundations that scale.</h3><p>Organizational structures, job architecture, authority matrices, policies, SOPs, and employee handbooks tailored to each client&apos;s reality.</p><div className="tags"><span>Org Design</span><span>Policy</span><span>Process</span></div></div></article>
-            <article className="project-card reveal"><div className="project-top"><span>TALENT ACQUISITION</span><b>02</b></div><div><h3>Connecting the right people with the right work.</h3><p>Full-cycle recruitment across engineering, construction, IT, finance, sales, marketing, HR, and operations.</p><div className="tags"><span>Sourcing</span><span>Interviewing</span><span>Onboarding</span></div></div></article>
-            <article className="project-card reveal"><div className="project-top"><span>PEOPLE SYSTEMS</span><b>03</b></div><div><h3>Turning people data into decisions.</h3><p>Performance frameworks, salary benchmarking, job grading, HR dashboards, and management-ready insights.</p><div className="tags"><span>Performance</span><span>C&B</span><span>Analytics</span></div></div></article>
-          </div>
-        </section>
+      <section id="skills" className="section skills-block"><div className="shell"><div className="label reveal">04 — EXPERTISE</div><div className="section-title reveal"><h2>Tools for building<br /><em>better workplaces.</em></h2></div><div className="skill-cloud reveal">{skills.map((skill, index) => <span key={skill}><i>{String(index + 1).padStart(2, "0")}</i>{skill}</span>)}</div><div className="credentials reveal"><div><small>2026</small><b>Professional Diploma in Human Resources</b><span>AAST</span></div><div><small>2026</small><b>Leadership Development Program</b><span>NTC</span></div><div><small>2022</small><b>Bachelor of Finance & Investment</b><span>Alexandria University</span></div></div></div></section>
 
-        <section id="skills" className="skills section-pad">
-          <div className="section-shell">
-            <div className="section-heading reveal"><p className="section-index">04 / EXPERTISE</p><h2>Capabilities that move<br /><em>people and business.</em></h2></div>
-            <div className="skill-groups">
-              {Object.entries(skills).map(([group, items], i) => <div className="skill-group reveal" key={group}><p><span>0{i + 1}</span>{group}</p><div className="pills">{items.map((item) => <span key={item}>{item}</span>)}</div></div>)}
-            </div>
-            <div className="credentials reveal"><p className="section-index">SELECTED CREDENTIALS</p><div className="credential-row"><span>Professional Diploma in Human Resources — AAST</span><b>2026</b></div><div className="credential-row"><span>Leadership Development Program — NTC</span><b>2026</b></div><div className="credential-row"><span>HR Foundations & AI for Business Analysis — LinkedIn Learning</span><b>2026</b></div><div className="credential-row"><span>Bachelor of Finance & Investment — Alexandria University</span><b>2022</b></div></div>
-          </div>
-        </section>
+      <section id="contact" className="contact shell section reveal"><div className="contact-top"><div><div className="label">05 — CONTACT</div><h2>Let’s build<br /><em>something better.</em></h2></div><p>Have a hiring challenge or an HR system to improve? Tell me what you are working on.</p></div><form action="mailto:hager8053@gmail.com" method="post" encType="text/plain"><label><span>Name</span><input name="name" required /></label><label><span>Email</span><input type="email" name="email" required /></label><label className="wide"><span>Message</span><textarea name="message" rows={3} required /></label><button type="submit">Send message <span>↗</span></button></form><div className="contact-links"><a href="mailto:hager8053@gmail.com">hager8053@gmail.com</a><a href="tel:+201152746073">+20 115 274 6073</a><a href="https://www.linkedin.com/in/hager-abd-elmegid-701447216/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></section>
+    </main>
 
-        <section id="contact" className="contact section-shell section-pad">
-          <div className="contact-panel reveal">
-            <p className="section-index">05 / CONTACT</p>
-            <h2>Have a people challenge?<br /><em>Let&apos;s solve it.</em></h2>
-            <p>Whether you&apos;re building a team, strengthening HR operations, or shaping an organization for growth, I&apos;d love to hear what you&apos;re working on.</p>
-            <form className="contact-form" action="mailto:hager8053@gmail.com" method="post" encType="text/plain">
-              <label><input name="name" placeholder=" " required /><span>Your name</span></label>
-              <label><input type="email" name="email" placeholder=" " required /><span>Email address</span></label>
-              <label className="message-field"><textarea name="message" placeholder=" " rows={3} required /><span>Tell me about your challenge</span></label>
-              <button type="submit">Start a conversation <ArrowIcon /></button>
-            </form>
-            <a className="contact-email" href="mailto:hager8053@gmail.com">Or email directly: hager8053@gmail.com <ArrowIcon /></a>
-            <div className="contact-links"><a href="tel:+201152746073">+20 115 274 6073</a><a href="https://www.linkedin.com/in/hager-abd-elmegid-701447216/" target="_blank" rel="noreferrer">LinkedIn <ArrowIcon /></a></div>
-          </div>
-        </section>
-      </main>
-
-      <footer><a className="brand" href="#home">HA<span>.</span></a><p>© {new Date().getFullYear()} Hager Abd Elmegid. Crafted with intention.</p><a href="#home">Back to top ↑</a></footer>
-    </>
-  );
+    <footer><a className="logo" href="#home">HAGER<span>/</span></a><p>HR GENERALIST · ALEXANDRIA, EGYPT</p><p>© {new Date().getFullYear()}</p></footer>
+  </>;
 }
