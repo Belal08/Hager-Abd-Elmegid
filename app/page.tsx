@@ -8,17 +8,25 @@ const experience = [
 ];
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [light, setLight] = useState(false);
   const [menu, setMenu] = useState(false);
   const [role, setRole] = useState(0);
 
   useEffect(() => {
     setLight(localStorage.getItem("ha-theme-v2") === "light");
-    const loading = window.setTimeout(() => setLoaded(true), 1100);
+    const loadDuration = 2400;
+    const loadStartedAt = Date.now();
+    const progressTimer = window.setInterval(() => {
+      const elapsed = Date.now() - loadStartedAt;
+      setProgress(Math.min(100, Math.round((elapsed / loadDuration) * 100)));
+      if (elapsed >= loadDuration) window.clearInterval(progressTimer);
+    }, 30);
+    const loading = window.setTimeout(() => { setProgress(100); setLoaded(true); }, loadDuration + 180);
     const typing = window.setInterval(() => setRole((value) => (value + 1) % roles.length), 2600);
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("visible")), { threshold: .12 });
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
-    return () => { clearTimeout(loading); clearInterval(typing); observer.disconnect(); };
+    return () => { clearTimeout(loading); clearInterval(progressTimer); clearInterval(typing); observer.disconnect(); };
   }, []);
 
   useEffect(() => {
@@ -27,7 +35,7 @@ export default function Home() {
   }, [light]);
 
   return <>
-    <div className={`loader ${loaded ? "hide" : ""}`}><div className="loader-logo">HA<span>/</span></div><div className="loader-line"><i /></div><small>BUILDING PEOPLE. SHAPING BUSINESS.</small></div>
+    <div className={`loader ${loaded ? "hide" : ""}`}><div className="loader-logo">HA<span>/</span></div><div className="loader-count">{String(progress).padStart(2, "0")}<span>%</span></div><div className="loader-line"><i style={{ width: `${progress}%` }} /></div><small>BUILDING PEOPLE. SHAPING BUSINESS.</small></div>
 
     <header>
       <a href="#home" className="logo">HAGER<span>/</span></a>
@@ -44,10 +52,6 @@ export default function Home() {
           <p>I build practical people systems that help organizations hire better, operate smarter, and grow with confidence.</p>
           <div className="actions"><a className="primary" href={`${import.meta.env.BASE_URL}Hager-Abd-Elmegid-CV.pdf`} download>Download résumé <span>↓</span></a><a className="secondary" href="#contact">Start a conversation <span>↗</span></a></div>
         </div>
-        <aside className="hero-aside reveal visible">
-          <div className="portrait-mark"><span>H</span><span>A</span></div>
-          <div className="aside-bottom"><div><small>EXPERIENCE</small><b>3+ YEARS</b></div><div><small>DISCIPLINE</small><b>PEOPLE & ORG</b></div></div>
-        </aside>
         <div className="hero-strip"><span>ORGANIZATIONAL DEVELOPMENT</span><i /><span>TALENT ACQUISITION</span><i /><span>HR OPERATIONS</span></div>
       </section>
 
