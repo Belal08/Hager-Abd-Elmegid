@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const roles = ["HR Generalist", "People Operations Partner", "Talent Acquisition Specialist"];
 const experience = [
@@ -6,6 +6,38 @@ const experience = [
   { period: "2024", role: "Recruitment Specialist", company: "Job Nile", text: "Managed complete recruitment cycles and built trusted relationships between clients and candidates.", points: ["Sourcing and competency interviews", "Offer and interview coordination", "Talent pipelines and reporting"] },
   { period: "2023 - 2024", role: "Recruitment & Database Coordinator", company: "Job Nile", text: "Created a reliable operational foundation for accurate and responsive recruitment delivery.", points: ["Candidate screening", "Stakeholder communication", "Database and CV quality"] },
 ];
+
+function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [value, setValue] = useState(0);
+  const numberRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = numberRef.current;
+    if (!element) return;
+    let frame = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setValue(target);
+        return;
+      }
+      const startedAt = performance.now();
+      const duration = 3000;
+      const tick = (now: number) => {
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(target * eased));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    }, { threshold: .55 });
+    observer.observe(element);
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); };
+  }, [target]);
+
+  return <strong ref={numberRef}>{value}{suffix}</strong>;
+}
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -61,7 +93,7 @@ export default function Home() {
           <h2 className="reveal">The human side of<br /><em>high performance.</em></h2>
           <div className="about-copy reveal"><p className="lead">HR Generalist with an analytical mindset and a genuine interest in how people and businesses grow together.</p><p>My experience spans HR consulting, organizational development, talent acquisition, and operations. I translate complex business needs into clear policies, strong teams, and processes people can trust.</p><a href="#experience">See career journey <span>→</span></a></div>
         </div>
-        <div className="stats reveal"><article><strong>40+</strong><span>Employees supported<br />per client</span></article><article><strong>3+</strong><span>Years across<br />the HR lifecycle</span></article><article><strong>8</strong><span>Professional<br />credentials</span></article><article className="red"><strong>EN</strong><span>Fluent English<br />communication</span></article></div>
+        <div className="stats reveal"><article><CountUp target={40} suffix="+" /><span>Employees supported<br />per client</span></article><article><CountUp target={3} suffix="+" /><span>Years across<br />the HR lifecycle</span></article><article><CountUp target={8} /><span>Professional<br />credentials</span></article><article className="red"><strong>EN</strong><span>Fluent English<br />communication</span></article></div>
       </section>
 
       <section id="experience" className="section dark-block"><div className="shell"><div className="label reveal">02 — EXPERIENCE</div><div className="section-title reveal"><h2>Career<br /><em>trajectory.</em></h2><p>From recruitment operations to strategic HR consulting.</p></div><div className="career">{experience.map((job, index) => <article className="career-row reveal" key={job.role}><div className="career-no">0{index + 1}</div><div className="career-meta"><span>{job.period}</span><b>{job.company}</b></div><div className="career-body"><h3>{job.role}</h3><p>{job.text}</p><ul>{job.points.map((point) => <li key={point}>{point}</li>)}</ul></div></article>)}</div></div></section>
