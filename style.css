@@ -69,6 +69,26 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
   footer .logo{font-size:19px}
   footer p{margin:4px 0}
 }
+
+/* Clean conversation CTA icon */
+.actions .secondary>span{position:relative;width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);font-size:0;transition:transform .25s ease,background .25s ease}
+.actions .secondary>span::before{content:"";position:absolute;width:9px;height:9px;border-top:2px solid #fff;border-right:2px solid #fff;transform:translate(2px,-2px)}
+.actions .secondary>span::after{content:"";position:absolute;width:15px;height:2px;border-radius:2px;background:#fff;transform:rotate(-45deg) translate(-1px,-1px)}
+@media(hover:hover){.actions .secondary:hover>span{transform:translate(3px,-3px);background:rgba(255,255,255,.22)}}
+
+/* Touch feedback: mobile equivalent of hover */
+@media(hover:none){
+  .button,.social,.career-row,.work-row,nav a{-webkit-tap-highlight-color:transparent}
+  .button:active,.social:active{transform:translateY(2px) scale(.98);box-shadow:none!important}
+  .actions .secondary:active>span{transform:translate(3px,-3px);background:rgba(255,255,255,.24)}
+  nav a:active{color:var(--red);transform:translateY(-1px)}
+  nav a:active::after{left:0;right:0}
+  .career-row:active{padding-left:12px;background:linear-gradient(90deg,rgba(25,71,209,.32),rgba(236,23,56,.16) 62%,transparent);box-shadow:inset 4px 0 0 var(--red)}
+  .career-row:active>*{transform:translateX(3px)}
+  .work-row:active{padding-left:14px;background:linear-gradient(90deg,rgba(8,9,12,.36),rgba(236,23,56,.2) 62%,rgba(8,9,12,.12));box-shadow:inset 5px 0 0 var(--red)}
+  .work-row:active>*:not(b){transform:translateX(3px)}
+  .work-row:active>b{transform:translateX(-10px) scale(1.08);color:rgba(255,255,255,.22)}
+}
 @media(max-width:360px){
   .contact-links{grid-template-columns:1fr}
   .contact-links .gmail{grid-column:auto}
