@@ -44,3 +44,39 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 /* Keep loader typography readable in both themes */
 .loader-logo,.loader-count,.loader-count b{color:#fff!important}
 .loader-logo span,.loader-count span{color:var(--red)!important}
+
+/* Refined phone layout */
+@media(max-width:560px){
+  header{height:66px;padding-inline:20px}
+  .logo{font-size:20px}
+  .theme{height:38px;padding:0 11px;font-size:9px}
+  .hamburger{width:38px;height:38px}
+  .contact{padding-inline:22px;padding-top:68px;padding-bottom:58px}
+  .contact-top .label{margin-bottom:24px}
+  .contact h2{font-size:44px}
+  .contact-top>p{font-size:13px}
+  .contact form{gap:14px;margin:38px 0 34px}
+  .contact label{gap:8px}
+  .contact input,.contact textarea{padding:14px}
+  .contact textarea{min-height:120px}
+  .contact .send{width:215px;min-height:54px;justify-self:end;padding-left:18px;border-radius:16px;font-size:11px}
+  .contact .send>span{width:54px}
+  .contact-links{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px!important}
+  .contact-links .social{width:100%!important;min-width:0;min-height:56px;padding:10px 14px;border-radius:16px;font-size:12px;justify-content:flex-start}
+  .contact-links .gmail{grid-column:1/-1;width:100%!important;max-width:none;justify-content:center}
+  .social svg{width:23px;height:23px;flex-basis:23px}
+  footer{min-height:0;padding:28px 22px;gap:9px}
+  footer .logo{font-size:19px}
+  footer p{margin:4px 0}
+}
+@media(max-width:360px){
+  .contact-links{grid-template-columns:1fr}
+  .contact-links .gmail{grid-column:auto}
+  .contact .send{width:100%}
+}
+
+/* Crisp CSS arrow — consistent across mobile platforms */
+.contact .send>span{position:relative;font-size:0}
+.contact .send>span::before{content:"";position:absolute;width:10px;height:10px;border-top:2px solid #fff;border-right:2px solid #fff;transform:translate(2px,-2px)}
+.contact .send>span::after{content:"";position:absolute;width:16px;height:2px;border-radius:2px;background:#fff;transform:rotate(-45deg) translate(-1px,-1px)}
+@media(hover:hover){.contact .send:hover>span::before{transform:translate(4px,-4px)}.contact .send:hover>span::after{transform:rotate(-45deg) translate(1px,-1px)}}
