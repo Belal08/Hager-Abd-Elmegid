@@ -15,3 +15,15 @@ footer{min-height:100px;border-top:1px solid var(--line);padding:0 max(28px,calc
 /* Clearer contact-field labels */
 .contact label>span{font-size:13px;font-weight:800;letter-spacing:.08em;color:#fff;margin-bottom:3px}
 :root[data-theme="light"] .contact label>span{color:#111218}
+
+/* Interactive career rows */
+.career-row{overflow:hidden;isolation:isolate;transition:padding-left .35s ease,color .35s ease}
+.career-row::before{content:"";position:absolute;z-index:-1;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,rgba(25,71,209,.34) 0%,rgba(236,23,56,.12) 55%,transparent 100%);transition:width .55s cubic-bezier(.2,.75,.25,1)}
+.career-row>*{position:relative;z-index:1;transition:transform .35s ease}
+@media(hover:hover){.career-row:hover{padding-left:18px}.career-row:hover::before{width:100%}.career-row:hover>*{transform:translateX(4px)}.career-row:hover .career-no{color:#fff}}
+:root[data-theme="light"] .career-row::before{background:linear-gradient(90deg,rgba(25,71,209,.18) 0%,rgba(236,23,56,.1) 55%,transparent 100%)}
+
+/* Strong, visible hover treatment */
+nav a{position:relative;padding:12px 2px;transition:color .25s ease,transform .25s ease}
+nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--red),#ff4965);box-shadow:0 0 12px rgba(236,23,56,.65);transition:left .3s ease,right .3s ease}
+@media(hover:hover){nav a:hover{color:var(--white);transform:translateY(-2px)}nav a:hover::after{left:0;right:0}.career-row:hover{padding-left:18px;background:linear-gradient(90deg,rgba(25,71,209,.32),rgba(236,23,56,.16) 62%,transparent);box-shadow:inset 4px 0 0 var(--red)}:root[data-theme="light"] .career-row:hover{background:linear-gradient(90deg,rgba(25,71,209,.17),rgba(236,23,56,.1) 62%,transparent)}}
