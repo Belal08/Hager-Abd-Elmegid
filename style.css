@@ -27,3 +27,9 @@ footer{min-height:100px;border-top:1px solid var(--line);padding:0 max(28px,calc
 nav a{position:relative;padding:12px 2px;transition:color .25s ease,transform .25s ease}
 nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--red),#ff4965);box-shadow:0 0 12px rgba(236,23,56,.65);transition:left .3s ease,right .3s ease}
 @media(hover:hover){nav a:hover{color:var(--white);transform:translateY(-2px)}nav a:hover::after{left:0;right:0}.career-row:hover{padding-left:18px;background:linear-gradient(90deg,rgba(25,71,209,.32),rgba(236,23,56,.16) 62%,transparent);box-shadow:inset 4px 0 0 var(--red)}:root[data-theme="light"] .career-row:hover{background:linear-gradient(90deg,rgba(25,71,209,.17),rgba(236,23,56,.1) 62%,transparent)}}
+
+/* Interactive selected-work rows */
+.work-row{overflow:hidden;isolation:isolate;transition:padding-left .38s ease,background .38s ease,box-shadow .38s ease}
+.work-row>*{position:relative;z-index:1;transition:transform .38s ease,color .3s ease}
+.work-row>b{transition:transform .45s ease,color .35s ease,opacity .35s ease}
+@media(hover:hover){.work-row:hover{padding-left:20px;background:linear-gradient(90deg,rgba(8,9,12,.36),rgba(236,23,56,.2) 62%,rgba(8,9,12,.12));box-shadow:inset 5px 0 0 var(--red)}.work-row:hover>*:not(b){transform:translateX(5px)}.work-row:hover>b{transform:translateX(-16px) scale(1.1);color:rgba(255,255,255,.22)}.work-row:hover>span{color:#fff}}
