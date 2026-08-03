@@ -88,3 +88,17 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 :root[data-theme="light"] .contact .send{background:#111218;color:#fff;box-shadow:0 9px 0 rgba(17,18,24,.2),0 18px 30px rgba(17,18,24,.18)}
 :root[data-theme="light"] .contact .send>span{background:transparent;border-left-color:rgba(255,255,255,.2)}
 @media(hover:hover){:root[data-theme="light"] .contact .send:hover{background:#252730}}
+
+/* Prevent mobile sections from creating horizontal overflow */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+@media(max-width:560px){
+  .hero{width:100%;max-width:100%;grid-template-columns:minmax(0,1fr)}
+  .hero-main{width:100%;min-width:0;max-width:100%;padding-left:20px;padding-right:20px;overflow:hidden}
+  .hero-main>*{max-width:100%}
+  .hero h1{font-size:clamp(43px,13vw,54px);overflow-wrap:anywhere}
+  .hero h1 b{max-width:100%;overflow-wrap:anywhere}
+  .kicker,.role,.actions{width:100%;min-width:0}
+  .actions .button{min-width:0;max-width:100%}
+  .hero-strip{width:100%;max-width:100%;min-width:0;padding-inline:20px}
+  main>section,.about,.work,.contact,.dark-block{width:100%;max-width:100%}
+}
