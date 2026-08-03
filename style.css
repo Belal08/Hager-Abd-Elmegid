@@ -33,3 +33,14 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 .work-row>*{position:relative;z-index:1;transition:transform .38s ease,color .3s ease}
 .work-row>b{transition:transform .45s ease,color .35s ease,opacity .35s ease}
 @media(hover:hover){.work-row:hover{padding-left:20px;background:linear-gradient(90deg,rgba(8,9,12,.36),rgba(236,23,56,.2) 62%,rgba(8,9,12,.12));box-shadow:inset 5px 0 0 var(--red)}.work-row:hover>*:not(b){transform:translateX(5px)}.work-row:hover>b{transform:translateX(-16px) scale(1.1);color:rgba(255,255,255,.22)}.work-row:hover>span{color:#fff}}
+
+/* Compact, premium contact submit button */
+.contact .send{width:230px;min-height:58px;justify-self:end;padding:0 0 0 20px;gap:14px;overflow:hidden;background:var(--red);color:#fff;box-shadow:0 9px 0 rgba(137,8,29,.5),0 18px 30px rgba(236,23,56,.2)}
+.contact .send>span{width:58px;align-self:stretch;display:grid;place-items:center;background:var(--blue);font-size:17px;transition:background .25s ease,transform .25s ease}
+@media(hover:hover){.contact .send:hover{transform:translateY(-3px);box-shadow:0 12px 0 rgba(137,8,29,.44),0 22px 35px rgba(236,23,56,.25)}.contact .send:hover>span{background:#0f38b8;transform:translateX(3px)}}
+:root[data-theme="light"] .contact .send{box-shadow:0 9px 0 rgba(166,174,185,.38),0 18px 30px rgba(33,42,58,.14)}
+@media(max-width:560px){.contact .send{width:100%}}
+
+/* Keep loader typography readable in both themes */
+.loader-logo,.loader-count,.loader-count b{color:#fff!important}
+.loader-logo span,.loader-count span{color:var(--red)!important}
