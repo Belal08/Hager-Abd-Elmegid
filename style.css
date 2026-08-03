@@ -77,6 +77,14 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 
 /* Crisp CSS arrow — consistent across mobile platforms */
 .contact .send>span{position:relative;font-size:0}
-.contact .send>span::before{content:"";position:absolute;width:10px;height:10px;border-top:2px solid #fff;border-right:2px solid #fff;transform:translate(2px,-2px)}
-.contact .send>span::after{content:"";position:absolute;width:16px;height:2px;border-radius:2px;background:#fff;transform:rotate(-45deg) translate(-1px,-1px)}
+.contact .send>span::before{content:"";position:absolute;width:10px;height:10px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:translate(2px,-2px)}
+.contact .send>span::after{content:"";position:absolute;width:16px;height:2px;border-radius:2px;background:currentColor;transform:rotate(-45deg) translate(-1px,-1px)}
 @media(hover:hover){.contact .send:hover>span::before{transform:translate(4px,-4px)}.contact .send:hover>span::after{transform:rotate(-45deg) translate(1px,-1px)}}
+
+/* Neutral monochrome submit button */
+.contact .send{background:#fff;color:#101116;box-shadow:0 9px 0 rgba(255,255,255,.12),0 18px 30px rgba(0,0,0,.3)}
+.contact .send>span{background:transparent;color:inherit;border-left:1px solid rgba(16,17,22,.16)}
+@media(hover:hover){.contact .send:hover{background:#f1f1ee;box-shadow:0 12px 0 rgba(255,255,255,.1),0 22px 34px rgba(0,0,0,.32)}.contact .send:hover>span{background:transparent}}
+:root[data-theme="light"] .contact .send{background:#111218;color:#fff;box-shadow:0 9px 0 rgba(17,18,24,.2),0 18px 30px rgba(17,18,24,.18)}
+:root[data-theme="light"] .contact .send>span{background:transparent;border-left-color:rgba(255,255,255,.2)}
+@media(hover:hover){:root[data-theme="light"] .contact .send:hover{background:#252730}}
