@@ -72,8 +72,8 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 
 /* Wider, more editorial desktop canvas */
 @media(min-width:1000px){
-  header,.shell,.about,.work,.contact{padding-left:max(34px,calc((100vw - 1400px)/2));padding-right:max(34px,calc((100vw - 1400px)/2))}
-  .hero{grid-template-columns:minmax(34px,1fr) minmax(0,1400px) minmax(34px,1fr)}
+  header,.shell,.about,.work,.contact{padding-left:max(40px,calc((100vw - 1260px)/2));padding-right:max(40px,calc((100vw - 1260px)/2))}
+  .hero{grid-template-columns:minmax(40px,1fr) minmax(0,1260px) minmax(40px,1fr)}
   .hero-main>p{max-width:720px;font-size:16px}
   .about-layout,.section-title,.contact-top{gap:100px}
   .about-copy p{font-size:16px}
@@ -86,7 +86,7 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 }
 
 /* Editorial footer credit */
-.site-footer{min-height:0;height:auto;padding:0;background:linear-gradient(90deg,#250910,#08090c 58%);border-top:1px solid var(--line);color:#dedee2}
+.site-footer{min-height:0;height:auto;padding:0;background:radial-gradient(ellipse at 0 100%,rgba(236,23,56,.2),transparent 46%),linear-gradient(120deg,#10070b,#08090c 60%);border-top:1px solid var(--line);color:#dedee2}
 .footer-inner{width:100%;padding:28px max(28px,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid rgba(255,255,255,.08);font-size:14px}
 .footer-inner p{margin:0;line-height:1.6}
 .footer-separator{margin-inline:5px;color:var(--red)}
@@ -94,10 +94,10 @@ nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:4px;height:3
 .developer-credit:hover{color:#ff6078}
 .footer-email{white-space:nowrap;color:inherit;transition:color .22s ease}
 .footer-email:hover{color:var(--red)}
-:root[data-theme="light"] .site-footer{background:#efd0ae;color:#251714;border-top-color:rgba(37,23,20,.2)}
+:root[data-theme="light"] .site-footer{background:radial-gradient(ellipse at 0 100%,rgba(236,23,56,.1),transparent 44%),#f4f3ef;color:#251714;border-top-color:rgba(37,23,20,.16)}
 :root[data-theme="light"] .footer-inner{border-top-color:rgba(37,23,20,.2)}
 :root[data-theme="light"] .developer-credit{color:#9f2946}
-@media(min-width:1000px){.footer-inner{padding-left:max(34px,calc((100vw - 1400px)/2));padding-right:max(34px,calc((100vw - 1400px)/2))}}
+@media(min-width:1000px){.footer-inner{padding-left:max(40px,calc((100vw - 1260px)/2));padding-right:max(40px,calc((100vw - 1260px)/2))}}
 @media(max-width:700px){.footer-inner{padding:24px 22px;flex-direction:column;align-items:flex-start;gap:10px;font-size:12px}.footer-separator{display:block;height:0;overflow:hidden}.footer-email{font-size:13px}}
 
 /* Clean conversation CTA icon */
